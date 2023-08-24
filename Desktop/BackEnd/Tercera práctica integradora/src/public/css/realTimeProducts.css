@@ -1,0 +1,32 @@
+.styleForm {
+  width: 500px;
+  margin: 10px;
+  border: 4px solid;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: cornflowerblue;
+}
+
+.styleForm label {
+  display: inline;
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.styleForm input[type='text'],
+.styleForm textarea,
+.styleForm input[type='number'],
+.styleForm input[type='submit'] {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+.styleForm input[type='submit'] {
+  display: block;
+  margin: 10px auto;
+  padding-top: 10px;
+}

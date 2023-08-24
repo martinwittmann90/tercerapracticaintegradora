@@ -1,0 +1,54 @@
+/* STYLE REGISTER */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+.register-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+.register-form {
+  width: 300px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.register-input-group {
+  margin-bottom: 20px;
+}
+.register-input-wrapper {
+  margin-bottom: 10px;
+}
+.register-input-wrapper label {
+  font-size: 14px;
+  color: #333;
+}
+.register-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.register-submit {
+  display: flex;
+  justify-content: center;
+}
+.register-submit-btn {
+  padding: 10px 20px;
+  background-color: #ff5722;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.register-submit-btn:hover {
+  background-color: #f44336;
+}

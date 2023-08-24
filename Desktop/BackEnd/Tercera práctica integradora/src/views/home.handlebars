@@ -1,0 +1,35 @@
+<section>
+  <nav>
+    <div class='dashboard-container'>
+      <img src='https://i.ibb.co/nrNMjtT/logo.png' whidth='70' style='max-height: max-content;' />
+      {{#if session}}
+        <p class='welcome-message'>Bienvenido, {{session.firstName}}</p>
+        <button id='logout-btn' type='submit' class='averageButton'>Logout</button>
+        <button class='averageButton' onclick="location.href='/products'">Ir a productos</button>
+      {{else}}
+        <p class='guest-message'>Bienvenido a la tienda</p>
+        <a href='/?login=true' class='sign-in-link button is-light'>INICIAR SESIÓN</a>
+        <a href='/?register=true' class='register-link button is-primary'>REGISTRO</a>
+      {{/if}}
+    </div>
+  </nav>
+  <img src='https://i.ibb.co/WBc0hJG/cesped-futbol.jpg' alt='cespedFutbol' class='background-image' />
+  <div id='carousel-container'>
+    <div class='carousel'>
+      <div class='carousel-item active'>
+        <img src='https://i.ibb.co/4dJB6DR/camiseta-Argentina.png' alt='Imagen 1' />
+      </div>
+      <div class='carousel-item hidden'>
+        <img src='https://i.ibb.co/jMmCR7f/camiseta-Croacia.png' alt='Imagen 2' />
+      </div>
+      <div class='carousel-item hidden'>
+        <img src='https://i.ibb.co/4NykKFH/camiseta-Holanda.png' alt='Imagen 2' />
+      </div>
+      <div class='carousel-item hidden'>
+        <img src='https://i.ibb.co/bmccp6d/camisetas-Brasil.png' alt='Imagen 2' />
+      </div>
+    </div>
+  </div>
+</section>
+<script src='/js/profile.js'></script>
+<script src='/js/home.js'></script>

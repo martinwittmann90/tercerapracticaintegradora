@@ -1,0 +1,19 @@
+.averageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff3860;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  margin: 1rem;
+}
+.averageButton:hover {
+  background-color: darkred;
+}

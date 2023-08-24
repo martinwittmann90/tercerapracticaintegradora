@@ -1,0 +1,11 @@
+<h1>Change User Role</h1>
+<p>Change the role of the user with ID: {{user._id}}</p>
+<p>Current Role: {{user.role}}</p>
+<form action='/api/sessions/users/premium/{{user._id}}' method='post'>
+  <label for='role'>Select Role:</label>
+  <select name='role' id='role'>
+    <option value='user'>User</option>
+    <option value='premium'>Premium</option>
+  </select>
+  <button type='submit'>Change Role</button>
+</form>

@@ -1,0 +1,23 @@
+<div class='container login'>
+  <div class='card col-10 cardsBorder'>
+    <div class='card-header card-header-dashboard-style'>
+      <h2>Compra Finalizada</h2>
+    </div>
+    <div class='card-body'>
+      <h5 class='card-title'>Ticket / Orden</h5>
+      <div class>
+        <div class='cardsBorder-dashboard col-4'>
+
+          {{#each ticket}}
+            <div class='card-body'>
+              <p class='card-text'> {{product.title}} </p>
+              <p class='card-text'>Cantidad: {{quantity}} </p>
+            </div>
+          {{/each}}
+          <p class='card-text'><b>TOTAL</b> ${{totalCart}}</p>
+        </div>
+      </div>
+    </div>
+    <a class='averageButton' href='/products'>Volver</a>
+  </div>
+</div>

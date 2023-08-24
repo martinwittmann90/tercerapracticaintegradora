@@ -1,0 +1,44 @@
+<section>
+<div class="login__general__container">
+<h1 class="register-title">REGISTRO DE USUARIO</h1>
+<form method="POST" class="register-form">
+    <div class="register-input-group">
+        <div class="register-input-wrapper">
+            <label for="firstName">Nombre</label>
+            <input
+                class="register-input"
+                type="text" name="firstName" id="firstName" placeholder="Enter your name" required>
+        </div>
+        <div class="register-input-wrapper">
+            <label for="lastName">Apellido</label>
+            <input
+                class="register-input"
+                type="text" name="lastName" id="lastName" placeholder="Enter your lastname" required>
+        </div>
+        <div class="register-input-wrapper">
+            <label for="age">Edad</label>
+            <input
+                class="register-input"
+                type="text" name="age" id="age" placeholder="Enter your age" required>
+        </div>
+        <div class="register-input-wrapper">
+            <label for="email">Email</label>
+            <input
+                class="register-input"
+                type="email" name="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="register-input-wrapper">
+            <label for="password">Contraseña</label>
+            <input
+                class="register-input"
+                type="password" name="password" id="password" placeholder="Enter your password" required>
+        </div>
+    </div>
+    <div class="register-submit">
+        <button type="submit" class="register-submit-btn">REGISTRATE</button>
+    </div>
+</form>
+<a href="?login=true">¿Tenés una cuenta? Ingresá aquí</a>
+</div>
+</section>
+<script src="/js/register.js"></script>

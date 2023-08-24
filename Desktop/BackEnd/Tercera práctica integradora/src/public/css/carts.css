@@ -1,0 +1,68 @@
+/* Estilos para la tabla */
+.title__cartpage {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  font-size: 2rem;
+}
+.table__cart {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos para las celdas de encabezado */
+.table__cart th {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Estilos para las celdas de datos */
+.table__cart td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Estilos para las celdas de datos con clase 'infoProduct' */
+.table__cart .infoProduct {
+  font-style: italic;
+  color: #888;
+}
+
+/* Estilos para los botones */
+.table__cart button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Estilos para los botones al pasar el mouse */
+.table__cart button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilos para los encabezados de las columnas */
+.table__cart th:nth-child(1),
+.table__cart th:nth-child(2),
+.table__cart th:nth-child(3) {
+  width: 33.33%;
+}
+
+/* Estilos para las filas impares */
+.table__cart tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+.empty-cart-message {
+  color: #666;
+  font-style: italic;
+}
+.cartButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

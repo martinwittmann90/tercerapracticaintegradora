@@ -1,0 +1,42 @@
+/* Estilo para el contenedor principal */
+.notFoundContainer {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+}
+/* Estilo para la imagen */
+.notFoundImage {
+  border-radius: 50%;
+}
+/* Estilo para el título h1 */
+.notFoundTitle {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 10px;
+}
+/* Estilo para el subtítulo h3 */
+.notFoundSubtitle {
+  font-size: 24px;
+  color: #666;
+  margin-bottom: 10px;
+}
+/* Estilo para el párrafo p */
+.notFoundParagraph {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 20px;
+}
+/* Estilo para el botón */
+.notFoundButton {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #337ab7;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.notFoundButton:hover {
+  background-color: #23527c;
+}

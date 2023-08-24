@@ -1,0 +1,14 @@
+<h1>Chat</h1>
+<div>
+  <div id='messages'></div>
+  <input class='input is-warning is-medium' type='text' id='username' style='margin-top: 15px' placeholder='Username' />
+  <input class='input is-warning is-medium' type='text' id='message' style='margin-top: 15px' placeholder='Message' />
+  <button id='send' class='averageButton is-light' style='margin-top: 15px'>
+    Send
+  </button>
+</div>
+<button class='averageButton' onclick="location.href='/products'"><span class='icon'>
+    <i class='material-icons'>arrow_back</i></span><span>Seguir comprando</span>
+</button>
+<script src='/socket.io/socket.io.js'></script>
+<script src='/js/chat.js'></script>

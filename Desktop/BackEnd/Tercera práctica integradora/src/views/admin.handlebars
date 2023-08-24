@@ -1,0 +1,33 @@
+<div class='containerAdmin'>
+  <h1>BASE DE DATOS DE LOS USUARIOS</h1>
+  <table class='data-table'>
+    <thead>
+      <tr>
+        <th>ID del usuario</th>
+        <th>Email</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Rol</th>
+        <th>Edad</th>
+        <th>ID del carrito</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{email}}</td>
+          <td>{{firstName}}</td>
+          <td>{{lastName}}</td>
+          <td>
+            <a href='/api/sessions/users/premium/{{_id}}' class='{{role}}'>{{role}}</a>
+          </td>
+          <td class='small-cell'>{{age}}</td>
+          <td class='large-cell'>{{cartID}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <button class='averageButton' onclick="location.href='/products'">Productos</button>
+  <button class='averageButton' onclick="location.href='/api/sessions/current'">Usuario</button>
+</div>

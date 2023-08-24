@@ -1,0 +1,95 @@
+<div class='publicityBanner'>
+  <p><i class='material-icons'>local_shipping</i> Envíos a todo el país</p>
+  <p><i class='material-icons'>credit_card</i> 3 Cuotas sin interés</p>
+  <p><i class='material-icons'>phone</i> 0800-777-NISCHE</p>
+</div>
+<nav class='navbar'>
+  {{#if session}}
+    <div>
+      <a onclick="location.href='/products'"><img src='https://i.ibb.co/nrNMjtT/logo.png' alt='logo' width='100px' style='margin-left: 1.4rem;' /></a>
+    </div>
+    <div>
+      <h2 class='navbar__title'>Bienvenido/a: {{session.firstName}}</h2>
+    </div>
+    <div class='navbar__content'>
+      <a href='/api/sessions/current' class='navbar__link cartInfo' id='{{session.cartID}}'>
+        <button class='navbar__button averageButton'><span class='icon'><i class='material-icons'>account_circle</i></span><span>{{session.firstName}}</span></button></a>
+      <button class='navbar__logout-btn averageButton' onclick="location.href='/chat'">
+        <i class='material-icons'>chat</i>
+        Chat
+      </button>
+      <a onclick="location.href='/carts/{{session.cartID}}'">
+        <button class='navbar__button averageButton'><span class='icon'><i class='material-icons'>shopping_cart</i></span><span>Mi compra</span></button></a>
+      <button id='logout-btn' class='navbar__logout-btn averageButton'><span class='icon'><i class='material-icons'>exit_to_app</i></span><span>Salir</span></button>
+    </div>
+  {{else}}
+    <p class='navbar__guest-message'>Bienvenido a la tienda</p>
+    <a href='/?login=true' class='navbar__link button is-light'>INICIAR SESIÓN</a>
+    <a href='/?register=true' class='navbar__link button is-primary'>REGISTRO</a>
+  {{/if}}
+  {{#if isAdmin}}
+    <div class='admin-button'>
+      <button class='button is-info' onclick="location.href='http://localhost:8080/api/sessions/adminControl'">
+        <span class='icon'><i class='material-icons'>admin_panel_settings</i></span>
+        <span>Panel de Administrador</span>
+      </button>
+    </div>
+    <div class='admin-button'>
+      <button class='button is-info' onclick="location.href='http://localhost:8080/realtimeproducts'">
+        <span class='icon'><i class='material-icons'>add</i></span>
+        <span>Crear producto</span>
+      </button>
+    </div>
+  {{/if}}
+</nav>
+<section>
+  <div style='display: flex; justify-content: space-between; padding: 30px'>
+    <div>
+      ORDENAR POR PRECIO
+      <a href='?page=1&limit={{paginationInfo.limit}}&sort=asc&price={{price}}&status={{status}}'>⬆️</a>
+      <a href='?page=1&limit={{paginationInfo.limit}}&sort=desc&price={{price}}&status={{status}}'>⬇️</a>
+    </div>
+  </div>
+  <div class='row product justify-content-evenly'>
+    {{#each productsVisualice}}
+      <div class='containerCard containerProd' style='width: 14rem; margin-top: 5px;' id='{{this._id}}'>
+        <div style='margin-top: 10px; width:200px; height:200px;'>
+          <a onclick="location.href='/products/{{this._id}}'"><img src={{this.thumbnail}} alt='foto de Product {{this.id}}' /></a>
+        </div>
+        <div class='card-body'>
+          <h3 id='titleProduct' class='card-title'>{{this.title}}</h3>
+          <p id='descriptionProduct' class='card-text'>{{this.description}}</p>
+          <p id='priceProduct' class='card-text'>$ {{this.price}}</p>
+          <button onclick="putIntoCart('{{this._id}}')"><i class='material-icons'>shopping_basket</i><p>Agregar al carrito</p></button>
+          <br />
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  {{#if isPremium}}
+    <div class='admin-button'>
+      <button class='button is-info' onclick="location.href='http://localhost:8080/realtimeproducts'">
+        <span class='icon'><i class='material-icons'>add</i></span>
+        <span>Crear producto</span>
+      </button>
+    </div>
+  {{/if}}
+</section>
+
+<section>
+
+  <div style='display: flex; justify-content: center; margin-top: 30px'>
+    <div class='pagination'>
+      {{#if paginationInfo.hasPrevPage}}
+        <a href='?page={{paginationInfo.prevPage}}&limit={{paginationInfo.limit}}&sort={{sort}}&price={{price}}&status={{status}}'>⬅️ Anterior</a>
+      {{/if}}
+      <span style='margin-left: 20px; margin-right: 20px'>Página {{paginationInfo.page}} de {{paginationInfo.totalPages}}</span>
+      {{#if paginationInfo.hasNextPage}}
+        <a href='?page={{paginationInfo.nextPage}}&limit={{paginationInfo.limit}}&sort={{sort}}&price={{price}}&status={{status}}'>Siguiente ➡️</a>
+      {{/if}}
+    </div>
+  </div>
+</section>
+
+<script src='/js/profile.js'></script>
+<script src='/js/cart.js'></script>

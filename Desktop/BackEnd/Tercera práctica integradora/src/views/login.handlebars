@@ -1,0 +1,26 @@
+<div class='login__general__container'>
+  <h1 class='login-title'>INICIAR SESION</h1>
+  <form method='GET' class='login-form'>
+    <div class='login-input-group'>
+      <div class='login-input-wrapper'>
+        <label for='email'>Usuario</label>
+        <input class='login-input' type='email' name='email' id='email' placeholder='Your email' required />
+      </div>
+      <div class='login-input-wrapper'>
+        <label for='password'>Contraseña</label>
+        <input class='login-input' type='password' name='password' id='password' placeholder='Your password' required />
+      </div>
+    </div>
+    <div class='login-submit'>
+      <button type='submit' class='login-submit-btn'>INGRESÁ</button>
+    </div>
+  </form>
+  <button class='button is-primary mt-3' onclick="location.href='/api/sessions/github'">Autenticarse con GITHUB</button>
+  {{! <button class='button is-primary mt-3' onclick="location.href='/api/sessions/oauth2/redirect/google'">Autenticarse con GOOGLE</button> }}
+  <br />
+  <a href='?register=true'>¿No tienes una cuenta? Registrate</a>
+  <br />
+  <a href='/auth/profile/forget-password'>¿Olvidaste tu contraseña?</a>
+</div>
+
+<script src='/js/login.js'></script>

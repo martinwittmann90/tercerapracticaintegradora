@@ -1,0 +1,32 @@
+/* ------------------Estilo de la navbar ------------------*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: rgb(56, 110, 141);
+  color: black;
+}
+.navbar__logo {
+  margin-right: auto;
+}
+.navbar__title {
+  flex: 1;
+  text-align: center;
+  color: whitesmoke;
+  font-size: 2rem;
+}
+.navbar__content {
+  font-family: 'Your Fun Font', cursive;
+  font-size: 14px;
+  color: black;
+  margin: 0px 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navbar__link {
+  color: black;
+  text-decoration: none;
+}

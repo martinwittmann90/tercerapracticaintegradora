@@ -1,0 +1,51 @@
+<div class='container login'>
+  <div class='card col-10 cardsBorder'>
+    <div class='card-header card-header-dashboard-style'>
+      <h2>CheckOut - Finalizar Compra</h2>
+    </div>
+    <div class='card-body'>
+      <h5 class='card-title'>Ticket / Orden</h5>
+      <div class>
+        Nombre:
+        {{user.firstName}}
+        <br />
+        Email:
+        {{user.email}}
+        <br />
+        <div class='card-header-dashboard'>
+          <div class='cardsBorder-dashboard col-4'>
+            <p class='card-header card-header-dashboard-style'>Tu pedido</p>
+            {{#each cartProducts.cartProducts}}
+              <div class='card-body'>
+                <p class='card-text'> {{product.title}} x {{quantity}}</p>
+              </div>
+            {{/each}}
+          </div>
+          <div class='cardsBorder-dashboard col-3'>
+            {{ticketPreview.totalPriceCart2}}
+            {{! <p class="card-header card-header-dashboard-style ">Sin stock</p> }}
+            {{#each ticketPreview.cartWithOutStock}}
+              <div class='card-body'>
+                <p class='card-text' style='color: #ff692d;'> {{product.title}} </p>
+              </div>
+            {{/each}}
+          </div>
+          <div class='cardsBorder-dashboard col-4'>
+            <p class='card-header card-header-dashboard-style'>CARRITO FINAL</p>
+            {{#each ticketPreview.cartWithStock}}
+              <div class='card-body'>
+                <p class='card-text'> {{product.title}} x {{quantity}} = ${{totalPrice}}</p>
+              </div>
+            {{/each}}
+            <p class='card-text'><b>TOTAL</b> =>> $ {{ticketPreview.totalPriceTicket}}</p>
+          </div>
+        </div>
+        <button class='averageButton' onclick="location.href='/products'"><span class='icon'>
+            <i class='material-icons'>arrow_back</i></span><span>Seguir comprando</span>
+        </button>
+        <a href='/carts/purchase/{{userCartId}}' class='averageButton'>Finalizar</a>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>

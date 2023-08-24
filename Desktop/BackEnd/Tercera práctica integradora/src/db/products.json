@@ -1,0 +1,132 @@
+[
+  {
+    "title": "Argentina",
+    "description": "Camiseta",
+    "code": "C0001",
+    "price": "USD 100",
+    "status": true,
+    "stock": "5",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/4dJB6DR/camiseta-Argentina.png"
+    ],
+    "id": 1
+  },
+  {
+    "title": "Argentina",
+    "description": "Pantalón corto",
+    "code": "C0002",
+    "price": "USD 100",
+    "status": true,
+    "stock": "5",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/JvbsxnS/short-argentina.png"
+    ],
+    "id": 2
+  },
+  {
+    "title": "Croacia",
+    "description": "Camiseta",
+    "code": "C0003",
+    "price": "USD 100",
+    "status": true,
+    "stock": "5",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/jMmCR7f/camiseta-Croacia.png"
+    ],
+    "id": 3
+  },
+  {
+    "title": "Paises Bajos",
+    "description": "Camiseta",
+    "code": "C0004",
+    "price": "USD 100",
+    "status": true,
+    "stock": "5",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/4NykKFH/camiseta-Holanda.png"
+    ],
+    "id": 4
+  },
+  {
+    "title": "Brasil",
+    "description": "Camiseta",
+    "code": "C0005",
+    "price": "USD 100",
+    "status": true,
+    "stock": "5",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/bmccp6d/camisetas-Brasil.png"
+    ],
+    "id": 5
+  },
+  {
+    "title": "Alemania",
+    "description": "Camiseta",
+    "code": "C0006",
+    "price": "USD 100",
+    "status": true,
+    "stock": "5",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/f1VRdR0/camiseta-Alemania.png"
+    ],
+    "id": 6
+  },
+  {
+    "title": "España",
+    "description": "Camiseta",
+    "code": "C0007",
+    "price": "USD 90",
+    "status": true,
+    "stock": "3",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/fnyhXPj/camiseta-Espa-a.png"
+    ],
+    "id": 7
+  },
+  {
+    "title": "Portugal",
+    "description": "Camiseta",
+    "code": "C0008",
+    "price": "USD 70",
+    "status": true,
+    "stock": "7",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/SVtLNvb/camiseta-Portugal.png"
+    ],
+    "id": 8
+  },
+  {
+    "title": "Francia",
+    "description": "Camiseta",
+    "code": "C0009",
+    "price": "USD 70",
+    "status": true,
+    "stock": "7",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/163WFk8/camiseta-Francia.png"
+    ],
+    "id": 9
+  },
+  {
+    "title": "Francia",
+    "description": "Pantalón corto",
+    "code": "C0010",
+    "price": "USD 70",
+    "status": true,
+    "stock": "7",
+    "category": "x",
+    "thumbnails": [
+      "https://i.ibb.co/p23whvt/short-francia-Photo-Room.png"
+    ],
+    "id": 10
+  }
+]

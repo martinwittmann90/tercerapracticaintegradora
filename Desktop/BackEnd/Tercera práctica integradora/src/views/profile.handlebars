@@ -1,0 +1,37 @@
+<nav class='navbar fixed-top navbar-expand-lg navbar-dark bg-primary'>
+  <a onclick="location.href='/products'">
+    <img src='https://i.ibb.co/nrNMjtT/logo.png' alt='logo' width='100px' style='margin-left: 1.4rem;' />
+  </a>
+  <p class='navbar__title'>Bienvenido, {{firstName}}</p>
+  <div>
+    <button class='averageButton' onclick="location.href='/products'">
+      <span class='icon'><i class='material-icons'>arrow_back</i></span>
+      <span>Seguir comprando</span>
+    </button>
+  </div>
+  <div>
+    <button id='logout-btn' class='button is-info'>
+      <span class='icon'><i class='material-icons'>exit_to_app</i></span>
+      <span>Salir</span>
+    </button>
+  </div>
+</nav>
+<div class='dashboard-profile'>
+  <h2 class='profile-title'>Mi perfil</h2>
+  <div class='profile-details'>
+    <div>
+      <p>Email: {{email}}</p>
+      <p>Nombre completo: {{firstName}} {{lastName}}</p>
+      <p>Rol: {{role}}</p>
+      <p>Edad: {{age}}</p>
+    </div>
+  </div>
+  {{#if isAdmin}}
+    <div class='admin-button'>
+      <button class='button is-info' onclick="location.href='http://localhost:8080/api/sessions/adminControl'">
+        <span class='icon'><i class='material-icons'>admin_panel_settings</i></span>
+        <span>Panel de Administrador</span>
+      </button>
+    </div>
+  {{/if}}
+</div>
