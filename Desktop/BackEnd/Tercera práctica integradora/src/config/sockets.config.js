@@ -19,16 +19,30 @@ export default (io) => {
       }
     });
     //SOCKET DELETE ELEMENTS
-    socket.on('deleteProduct_front_to_back', async (id) => {
-      try {
-        await serviceProducts.deleteProduct(id);
-        socket.emit('productDeleted_back_to_front', { message: 'Product successfully removed' });
-        const productList = await serviceProducts.getAllProducts();
-        io.emit('products_back_to_front', { productList });
-      } catch (error) {
-        logger.error('Error al eliminar el producto:', { error });
-        socket.emit('productDeleteError_back_to_front', { error: 'An error occurred while deleting the product' });
-      }
+    socket.on('user_connected', (user) => {
+      const userRole = user.role;
+      const userEmail = user.email;
+      socket.on('deleteProduct_front_to_back', async (id) => {
+        console.log(id);
+        try {
+          if (userRole === 'admin') {
+            await serviceProducts.deleteProduct(id);
+            socket.emit('productDeleted_back_to_front', { message: 'Product successfully removed' });
+            const productList = await serviceProducts.getAllProducts();
+            io.emit('products_back_to_front', { productList });
+          } else if (userRole === 'premium') {
+            const deletedProduct = await serviceProducts.deleteProduct(id, userRole, userEmail);
+            socket.emit('productDeleted_back_to_front', { message: 'Product successfully removed' });
+            const productList = await serviceProducts.getAllProducts();
+            io.emit('products_back_to_front', { productList });
+          } else {
+            socket.emit('productDeleteError_back_to_front', { error: 'Unauthorized to delete the product' });
+          }
+        } catch (error) {
+          logger.error('Error al eliminar el producto:', { error });
+          socket.emit('productDeleteError_back_to_front', { error: 'An error occurred while deleting the product' });
+        }
+      });
     });
     //SOCKET CHAT
     socket.on('chat_front_to_back', async (message) => {

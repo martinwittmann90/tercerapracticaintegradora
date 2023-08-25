@@ -21,9 +21,18 @@ class ProductsDAO {
     const product = ProductModel.create(productData);
     return product;
   }
-  async deleteOneProduct(productId) {
-    const product = ProductModel.findByIdAndDelete(productId);
-    return product;
+  async deleteOneProduct(productId, userRole, userEmail) {
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      throw new Error(`Product with id ${productId} not found`);
+    }
+
+    if (userRole === 'admin' || (userRole === 'premium' && product.owner === userEmail)) {
+      const deletedProduct = await ProductModel.findByIdAndDelete(productId);
+      return deletedProduct;
+    } else {
+      throw new Error('You do not have permission to delete this product');
+    }
   }
   async updateOneProduct(productId, updatedData) {
     const product = ProductModel.findByIdAndUpdate(productId, updatedData, { new: true });

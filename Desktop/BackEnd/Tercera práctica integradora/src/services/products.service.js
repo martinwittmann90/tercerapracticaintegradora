@@ -67,12 +67,12 @@ class ServiceProducts {
     }
   }
 
-  async deleteProduct(productId) {
+  async deleteProduct(productId, userRole, userEmail) {
     try {
-      const delProd = await productsDAO.deleteOneProduct(productId);
-      return delProd;
+      const deletedProduct = await productsDAO.deleteOneProduct(productId, userRole, userEmail);
+      return deletedProduct;
     } catch (error) {
-      throw `Failed to find product with id number: ${productId}`;
+      throw new Error(`Failed to delete product with id: ${productId}`);
     }
   }
 }

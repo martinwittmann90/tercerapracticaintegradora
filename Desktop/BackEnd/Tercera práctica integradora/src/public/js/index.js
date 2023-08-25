@@ -1,4 +1,11 @@
+const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || JSON.parse(sessionStorage.getItem('loggedInUser'));
 const socket = io();
+socket.on('connect', () => {
+  socket.emit('user_connected', loggedInUser);
+});
+socket.on('user_connected', (user) => {
+  console.log('Usuario conectado:', user);
+});
 let newProduct = {};
 const formProducts = document.getElementById('formProducts');
 formProducts.addEventListener('submit', (event) => {
@@ -11,7 +18,7 @@ formProducts.addEventListener('submit', (event) => {
   const stock = formProducts.elements.stock.value;
   const category = formProducts.elements.category.value;
   const status = formProducts.elements.status.value;
-
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || JSON.parse(sessionStorage.getItem('loggedInUser'));
   newProductIncorporate = {
     title,
     description,
@@ -21,6 +28,7 @@ formProducts.addEventListener('submit', (event) => {
     stock,
     category,
     status,
+    owner: loggedInUser.email,
   };
   socket.emit('product_front_to_back', newProductIncorporate);
   formProducts.reset();

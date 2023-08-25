@@ -49,7 +49,6 @@ class ProductsController {
     try {
       const user = req.session.user;
       const productData = req.body;
-
       if (user.role === 'premium') {
         productData.owner = user.email;
         const createdProduct = await serviceProducts.createProduct(productData);

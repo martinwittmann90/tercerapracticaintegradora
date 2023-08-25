@@ -20,6 +20,9 @@ loginForm.onsubmit = (e) => {
       document.body.removeChild(loadingElement);
       loginForm.reset();
       if (result.status === 'success') {
+        const loggedInUser = { email: formValues.email, role: result.payload.role };
+        localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+        sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
         const successElement = document.createElement('div');
         successElement.textContent = 'Redirecting to Products Page...';
         document.body.appendChild(successElement);
