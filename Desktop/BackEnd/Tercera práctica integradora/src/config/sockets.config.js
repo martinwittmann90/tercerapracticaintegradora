@@ -19,19 +19,18 @@ export default (io) => {
       }
     });
     //SOCKET DELETE ELEMENTS
-    socket.on('user_connected', (user) => {
+    socket.on('user_connected', async (user) => {
       const userRole = user.role;
       const userEmail = user.email;
       socket.on('deleteProduct_front_to_back', async (id) => {
-        console.log(id);
         try {
-          if (userRole === 'admin') {
+          const product = await serviceProducts.getProductById(id);
+          if (!product) {
+            socket.emit('productDeleteError_back_to_front', { error: 'Product not found' });
+            return;
+          }
+          if (userRole === 'admin' || (userRole === 'premium' && product.owner === userEmail)) {
             await serviceProducts.deleteProduct(id);
-            socket.emit('productDeleted_back_to_front', { message: 'Product successfully removed' });
-            const productList = await serviceProducts.getAllProducts();
-            io.emit('products_back_to_front', { productList });
-          } else if (userRole === 'premium') {
-            const deletedProduct = await serviceProducts.deleteProduct(id, userRole, userEmail);
             socket.emit('productDeleted_back_to_front', { message: 'Product successfully removed' });
             const productList = await serviceProducts.getAllProducts();
             io.emit('products_back_to_front', { productList });
@@ -40,7 +39,7 @@ export default (io) => {
           }
         } catch (error) {
           logger.error('Error al eliminar el producto:', { error });
-          socket.emit('productDeleteError_back_to_front', { error: 'An error occurred while deleting the product' });
+          socket.emit('productDeleteError_back_to_front', { error: 'An error occurred while deleting the product', originalError: error });
         }
       });
     });

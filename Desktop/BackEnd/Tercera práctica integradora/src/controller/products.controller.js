@@ -49,6 +49,7 @@ class ProductsController {
     try {
       const user = req.session.user;
       const productData = req.body;
+
       if (user.role === 'premium') {
         productData.owner = user.email;
         const createdProduct = await serviceProducts.createProduct(productData);
@@ -72,34 +73,15 @@ class ProductsController {
   async updateOne(req, res) {
     try {
       const productId = req.params.id;
-      const productData = req.body;
-      const user = req.session.user;
-      const product = await serviceProducts.getProductById(productId);
+      const updatedProduct = req.body;
+      const product = await serviceProducts.updateProduct(productId, updatedProduct);
       if (!product) {
         return res.status(404).json({
           status: 'error',
           msg: 'Product not found',
         });
       }
-      if (user.role === 'admin' || (user.role === 'premium' && product.owner === user.email)) {
-        const updatedProduct = await serviceProducts.updateProduct(productId, productData);
-        if (!updatedProduct) {
-          return res.status(404).json({
-            status: 'error',
-            msg: 'Product not found',
-          });
-        }
-        return res.status(200).json({
-          status: 'success',
-          msg: 'Product updated',
-          payload: updatedProduct,
-        });
-      } else {
-        return res.status(403).json({
-          status: 'error',
-          msg: 'Permission denied',
-        });
-      }
+      res.status(200).json({ status: 'success', msg: 'Product updated', payload: product });
     } catch (error) {
       logger.error(error.message);
       res.status(500).json({ status: 'error', msg: error.message });
@@ -116,7 +98,20 @@ class ProductsController {
           msg: 'Product not found',
         });
       }
-      if (user.role === 'admin' || (user.role === 'premium' && product.owner === user.email)) {
+      if (user.role === 'admin') {
+        const deletedProduct = await serviceProducts.deleteProduct(productId);
+        if (!deletedProduct) {
+          return res.status(404).json({
+            status: 'error',
+            msg: 'Product not found',
+          });
+        }
+        return res.status(200).json({
+          status: 'success',
+          msg: 'Product deleted',
+          payload: deletedProduct,
+        });
+      } else if (user.role === 'premium' && product.owner === user.email) {
         const deletedProduct = await serviceProducts.deleteProduct(productId);
         if (!deletedProduct) {
           return res.status(404).json({
@@ -141,4 +136,5 @@ class ProductsController {
     }
   }
 }
+
 export const productsController = new ProductsController();

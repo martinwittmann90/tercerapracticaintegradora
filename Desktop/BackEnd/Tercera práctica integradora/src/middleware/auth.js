@@ -9,12 +9,15 @@ export const isUser = (req, res, next) => {
 };
 
 export const isAdmin = (req, res, next) => {
+  console.log('isAdmin middleware running');
   if (process.env.NODE_ENV === 'DEVELOPMENT') {
     return next();
   }
   if (req.session?.role === 'admin') {
+    console.log('User is an admin');
     return next();
   }
+  console.log('User is not an admin');
   return res.status(403).render('error', { error: 'Error de autorización.' });
 };
 
@@ -47,9 +50,9 @@ export const isNotAdmin = (req, res, next) => {
 };
 
 export const isCartOwner = (req, res, next) => {
-   if ((process.env.NODE_ENV === 'DEVELOPMENT') && (!req.isAuthenticated()) ){
+  if (process.env.NODE_ENV === 'DEVELOPMENT' && !req.isAuthenticated()) {
     return next();
-  } 
+  }
   if (req.user?.cartID === req.params.cid) {
     return next();
   }

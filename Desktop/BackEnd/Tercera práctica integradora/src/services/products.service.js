@@ -66,10 +66,9 @@ class ServiceProducts {
       throw `Could not modify product. ${error}`;
     }
   }
-
-  async deleteProduct(productId, userRole, userEmail) {
+  async deleteProduct(productId) {
     try {
-      const deletedProduct = await productsDAO.deleteOneProduct(productId, userRole, userEmail);
+      const deletedProduct = await productsDAO.deleteOneProduct(productId);
       return deletedProduct;
     } catch (error) {
       throw new Error(`Failed to delete product with id: ${productId}`);

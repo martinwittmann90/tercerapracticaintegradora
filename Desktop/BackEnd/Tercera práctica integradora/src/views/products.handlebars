@@ -34,12 +34,6 @@
         <span>Panel de Administrador</span>
       </button>
     </div>
-    <div class='admin-button'>
-      <button class='button is-info' onclick="location.href='http://localhost:8080/realtimeproducts'">
-        <span class='icon'><i class='material-icons'>add</i></span>
-        <span>Crear producto</span>
-      </button>
-    </div>
   {{/if}}
 </nav>
 <section>
@@ -67,6 +61,14 @@
     {{/each}}
   </div>
   {{#if isPremium}}
+    <div class='admin-button'>
+      <button class='button is-info' onclick="location.href='http://localhost:8080/realtimeproducts'">
+        <span class='icon'><i class='material-icons'>add</i></span>
+        <span>Crear producto</span>
+      </button>
+    </div>
+  {{/if}}
+  {{#if isAdmin}}
     <div class='admin-button'>
       <button class='button is-info' onclick="location.href='http://localhost:8080/realtimeproducts'">
         <span class='icon'><i class='material-icons'>add</i></span>

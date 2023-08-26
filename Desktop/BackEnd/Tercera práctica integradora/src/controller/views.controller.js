@@ -141,11 +141,14 @@ class ViewsController {
 
   async realTimeProducts(req, res) {
     try {
-      const { page, limit, sort, query } = req.query;
       const user = req.session.user;
+      if (!user) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
       if (user.role !== 'premium' && user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied' });
       }
+      const { page, limit, sort, query } = req.query;
       const queryResult = await serviceProducts.getAllProducts(page, limit, sort, query);
       const { docs, ...paginationInfo } = queryResult;
       const productsVisualice = docs.map((product) => {
@@ -163,7 +166,20 @@ class ViewsController {
       });
       const nextPage = parseInt(page) + 1;
       const nextPageUrl = `/realtimeproducts?page=${nextPage}&limit=${limit}&sort=${sort}`;
-      res.render('realtimeproducts', { productsVisualice, paginationInfo, nextPageUrl, sort });
+      const realTimeProductsUser = new userDTO(req.session.user);
+      const realTimeProductsContext = {
+        isAdmin: realTimeProductsUser.isAdmin,
+        isPremium: realTimeProductsUser.isPremium,
+        session: req.session.user,
+      };
+      const realTimeProductsRender = {
+        productsVisualice,
+        paginationInfo,
+        nextPageUrl,
+        sort,
+        realTimeProductsContext,
+      };
+      res.render('realtimeproducts', { realTimeProductsRender });
       logger.info('realTimeProducts function called successfully.');
     } catch (error) {
       logger.error(error);
