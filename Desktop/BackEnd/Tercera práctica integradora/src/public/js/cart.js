@@ -20,6 +20,9 @@ function putIntoCart(_id) {
   if (cartIdValue === undefined) {
     window.location.href = '/api/sessions/current';
   }
+  /*   if (user.role === 'premium' && product.owner === user.email) {
+    alert('Permission denied: Cannot add your own product to cart');
+  } */
   const url = API_URL + '/carts/' + cartIdValue + '/product/' + _id;
   const data = {};
   const options = {

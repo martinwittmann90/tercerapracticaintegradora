@@ -37,7 +37,6 @@ class CartController {
           message: 'Permission denied: Cannot add your own product to cart',
         });
       }
-
       const cart = await serviceCarts.addProductToCartService(cid, pid);
       logger.info(`Product ${pid} added to cart ${cid}:`, cart);
       res.status(200).json(cart);

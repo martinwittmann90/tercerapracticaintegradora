@@ -24,14 +24,14 @@ class AuthController {
         email: req.user.email,
         firstName: req.user.firstName,
         lastName: req.user.lastName,
-        rol: req.user.rol,
+        role: req.user.role,
         age: req.user.age,
         cartID: req.user.cartID,
       };
       return res.status(400).json({ error: 'Invalid Credentials' });
     }
-    const { _id, email, firstName, lastName, age, role } = req.user;
-    req.session.user = { _id, email, firstName, lastName, age, role };
+    const { _id, email, firstName, lastName, age, role, cartID } = req.user;
+    req.session.user = { _id, email, firstName, lastName, age, role, cartID };
     logger.info('User logged in successfully', req.user);
     return res.status(200).json({ status: 'success', message: 'User logged in successfully', payload: req.user });
   }
@@ -41,7 +41,7 @@ class AuthController {
       email: req.user.email,
       firstName: req.user.firstName,
       lastName: req.user.lastName,
-      rol: req.user.rol,
+      role: req.user.role,
       age: req.user.age,
       cartID: req.user.cartID,
     };

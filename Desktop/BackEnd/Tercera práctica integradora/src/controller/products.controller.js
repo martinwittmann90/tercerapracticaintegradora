@@ -1,3 +1,4 @@
+import { uploader } from '../utils/utils.js';
 import ServiceProducts from '../services/products.service.js';
 import CustomError from '../error/customError.js';
 import { customErrorMsg } from '../error/customErrorMessage.js';
@@ -47,17 +48,23 @@ class ProductsController {
   }
   async createOne(req, res) {
     try {
+      /*       logger.info('Create Product Controller Reached');
+      logger.debug('Form Data:', req.body); */
+      /*       uploader.single('thumbnail')(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+          logger.error('Multer Error:', err);
+          return res.status(400).json({ error: 'Error de subida de archivo' });
+        } else if (err) {
+          logger.error('Error:', err);
+          return res.status(500).json({ error: 'Error de servidor' });
+        }
+        logger.debug('File Uploaded Successfully:', req.file); */
       const user = req.session.user;
       const productData = req.body;
-
       if (user.role === 'premium') {
         productData.owner = user.email;
         const createdProduct = await serviceProducts.createProduct(productData);
-        return res.status(201).json({
-          status: 'success',
-          msg: 'Product created',
-          payload: createdProduct,
-        });
+        return res.status(200).redirect('/realtimeproducts');
       } else {
         return res.status(403).json({
           status: 'error',

@@ -1,34 +1,50 @@
 export const isUser = (req, res, next) => {
-  if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  if (req.session.user && req.session.user.role === 'user') {
     return next();
   }
-  if (req.session?.email) {
+  return res.status(403).json({ message: 'Permission denied, not user' });
+};
+
+export const isPremium = (req, res, next) => {
+  if (req.session.user && req.session.user.role === 'premium') {
     return next();
   }
-  return res.status(401).render('error', { error: 'Error de autenticacion.' });
+  return res.status(403).json({ message: 'Permission denied, not premium' });
 };
 
 export const isAdmin = (req, res, next) => {
-  console.log('isAdmin middleware running');
-  if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  if (req.session.user && req.session.user.role === 'admin') {
     return next();
   }
-  if (req.session?.role === 'admin') {
-    console.log('User is an admin');
-    return next();
-  }
-  console.log('User is not an admin');
-  return res.status(403).render('error', { error: 'Error de autorización.' });
+  return res.status(403).json({ message: 'Permission denied, not admin' });
 };
 
 export const isLogged = (req, res, next) => {
-  if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  if (req.session.user) {
     return next();
   }
-  if (req.isAuthenticated()) {
+  return res.status(401).json({ message: 'Unauthorized' });
+};
+
+export const isNotAdmin = (req, res, next) => {
+  if (!req.session.user || req.session.user.role !== 'admin') {
     return next();
   }
-  return res.redirect('/products');
+  return res.status(403).json({ message: 'Permission denied, user is admin' });
+};
+
+export const isAdminOrPremium = (req, res, next) => {
+  if (req.session.user && (req.session.user.role === 'admin' || req.session.user.role === 'premium')) {
+    return next();
+  }
+  return res.status(403).json({ message: 'Permission denied' });
+};
+
+export const isCartOwner = (req, res, next) => {
+  if (req.session.user && req.session.user.cartID) {
+    return next();
+  }
+  return res.status(403).json({ message: 'Cart ID missing' });
 };
 
 export const redirectIfLoggedIn = (req, res, next) => {
@@ -36,25 +52,4 @@ export const redirectIfLoggedIn = (req, res, next) => {
     return res.redirect('/products');
   }
   return next();
-};
-
-export const isNotAdmin = (req, res, next) => {
-  if (process.env.NODE_ENV === 'DEVELOPMENT') {
-    return next();
-  }
-
-  if (req.session?.role !== 'admin') {
-    return next();
-  }
-  return res.status(403).render('error', { error: 'Error de autorización.' });
-};
-
-export const isCartOwner = (req, res, next) => {
-  if (process.env.NODE_ENV === 'DEVELOPMENT' && !req.isAuthenticated()) {
-    return next();
-  }
-  if (req.user?.cartID === req.params.cid) {
-    return next();
-  }
-  return res.status(403).render('error', { error: 'Authorization error, does not have Cart' });
 };

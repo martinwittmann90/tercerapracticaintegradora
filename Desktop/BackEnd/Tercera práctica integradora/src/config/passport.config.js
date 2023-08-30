@@ -43,13 +43,11 @@ export default function initPassport() {
             password: createHash(password),
             cartID: cartID,
           });
-          // Guardar el nuevo usuario en la base de datos
           await newUser.save();
           logger.info('User Registration successful', { user: newUser });
-          // Generar el token de recuperación de contraseña
           const recoveryToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
           newUser.resetToken = recoveryToken;
-          newUser.resetTokenExpires = new Date(Date.now() + 3600000); // 1 hora en milisegundos
+          newUser.resetTokenExpires = new Date(Date.now() + 3600000);
           await newUser.save();
           return done(null, newUser);
         } catch (error) {

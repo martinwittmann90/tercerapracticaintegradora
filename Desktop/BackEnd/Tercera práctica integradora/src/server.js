@@ -16,6 +16,8 @@ import { __dirname } from './configPath.js';
 import config from './config/envConfig.js';
 import { logger } from './utils/logger.js';
 import indexRoutes from './routes/index.routes.js';
+import path from 'path';
+import bodyParser from 'body-parser';
 
 /*-------CONFIG BASICAS Y CONEXION A BD-------*/
 const app = express();
@@ -25,7 +27,9 @@ const port = config.port;
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 /*-------SETTING HANDLEBARS-------*/
 const hbs = exphbs.create({

@@ -8,7 +8,8 @@
     </div>
     <div class='navbar__content'>
       <a href='/api/sessions/current' class='navbar__link cartInfo' id='{{realTimeProductsRender.realTimeProductsContext.session.cartID}}'>
-        <button class='navbar__button averageButton'><span class='icon'><i class='material-icons'>account_circle</i></span><span>{{realTimeProductsRender.realTimeProductsContext.session.firstName}}</span></button></a>
+        <button class='navbar__button averageButton'><span class='icon'><i class='material-icons'>account_circle</i></span><span
+          >{{realTimeProductsRender.realTimeProductsContext.session.firstName}}</span></button></a>
       <button class='navbar__logout-btn averageButton' onclick="location.href='/chat'">
         <i class='material-icons'>chat</i>
         Chat
@@ -32,120 +33,118 @@
   {{/if}}
 </nav>
 <section>
-  <div class="container mt-6" style="max-width: 500px">
-    <form id="formProducts" class= "styleForm">
-        <h3 class="is-size-3 mb-5">Ingrese un nuevo producto</h3>
-          <div class="field">
-            <label for="title" class="label">Título</label>
-            <div class="control">
-              <input class="input is-success" type="text" placeholder="Agregar un titulo al producto" value="" name="title"/>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Descripción</label>
-            <div class="control">
-              <textarea value="" name="description" class="textarea is-success" placeholder="Ingrese una breve descripción del producto" rows="3"></textarea>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Código</label>
-            <div class="control">
-              <input class="input is-success" type="text" placeholder="Ingrese el código del producto" value="" name="code"/>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Precio</label>
-            <div class="control">
-              <input
-                class="input is-success" type="text" placeholder="Ingrese el precio del producto" value="" name="price"/>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Stock</label>
-            <div class="control">
-              <input
-                class="input is-success" type="number" min="0" max="10000" value="0" name="stock"/>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label"></label>
-            <div class="control">
-              <input style="margin-top: 10px" type="hidden" class="form-control" value="true" name="status" required>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Categoría</label>
-            <div class="control">
-              <div class="select is-primary">
-                <select name="category">
-                  <option value="Camisetas">Camisetas</option>
-                  <option value="Shorts">Shorts</option>
-                  <option value="Medias">Medias</option>
-                  <option value="Botines">Botines</option>
-                  <option value="Camperas">Camperas</option>
-                </select>
-              </div>
-            </div>
-          <div class="field">
-            <label class="label">Imágen</label>
-            <div class="control">
-              <input class="input is-success" type="text" placeholder="Ingrese una url con la imágen del producto" value="" name="thumbnail"/>
-            </div>
-          </div>
-{{!--             <label for="thumbnail">Imagen:</label>
-                <input type="file" id="thumbnail" name="thumbnail" required> --}}
-            <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary is-light">Agregar</button>
+  <form id='formProducts' class='styleForm' action='/api/products' method='post'>
+    <h3 class='is-size-3 mb-5'>Ingrese un nuevo producto</h3>
+    <div class='field'>
+      <label for='title' class='label'>Título</label>
+      <div class='control'>
+        <input class='input is-success' type='text' placeholder='Agregar un titulo al producto' value='' name='title' />
+      </div>
+    </div>
+    <div class='field'>
+      <label class='label'>Descripción</label>
+      <div class='control'>
+        <textarea value='' name='description' class='textarea is-success' placeholder='Ingrese una breve descripción del producto' rows='3'></textarea>
+      </div>
+    </div>
+    <div class='field'>
+      <label class='label'>Código</label>
+      <div class='control'>
+        <input class='input is-success' type='text' placeholder='Ingrese el código del producto' value='' name='code' />
+      </div>
+    </div>
+    <div class='field'>
+      <label class='label'>Precio</label>
+      <div class='control'>
+        <input class='input is-success' type='text' placeholder='Ingrese el precio del producto' value='' name='price' />
+      </div>
+    </div>
+    <div class='field'>
+      <label class='label'>Stock</label>
+      <div class='control'>
+        <input class='input is-success' type='number' min='0' max='10000' value='0' name='stock' />
+      </div>
+    </div>
+    <div class='field'>
+      <label class='label'></label>
+      <div class='control'>
+        <input style='margin-top: 10px' type='hidden' class='form-control' value='true' name='status' required />
+      </div>
+    </div>
+    <div class='field'>
+      <label class='label'>Categoría</label>
+      <div class='control'>
+        <div class='select is-primary'>
+          <select name='category'>
+            <option value='Camisetas'>Camisetas</option>
+            <option value='Shorts'>Shorts</option>
+            <option value='Medias'>Medias</option>
+            <option value='Botines'>Botines</option>
+            <option value='Camperas'>Camperas</option>
+          </select>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+    <div class='field'>
+      <label class='label'>Imagen (URL o archivo)</label>
+      <div class='control'>
+        <input class='input is-success' type='text' placeholder='Ingrese una URL con la imagen del producto' value='' name='thumbnail' />
+        <input type='file' id='thumbnailFile' name='thumbnailFile' />
+      </div>
+    </div>
+    <div class='field is-grouped'>
+      <div class='control'>
+        <button class='button is-primary is-light'>Agregar</button>
+      </div>
+    </div>
+  </form>
 </section>
-<section class="mt-6">
-  <div id="cardContainer" style="text-align: center;" class="container is-flex is-flex-wrap-wrap">
+<section class='mt-6'>
+  <div id='cardContainer' style='text-align: center;' class='container is-flex is-flex-wrap-wrap'>
     <div>
       ORDENAR
-      <a href="?page={{paginationInfo.page}}&limit={{paginationInfo.limit}}&sort=asc">⬆️</a>
-      <a href="?page={{paginationInfo.page}}&limit={{paginationInfo.limit}}&sort=desc">⬇️</a>
+      <a href='?page={{paginationInfo.page}}&limit={{paginationInfo.limit}}&sort=asc'>⬆️</a>
+      <a href='?page={{paginationInfo.page}}&limit={{paginationInfo.limit}}&sort=desc'>⬇️</a>
     </div>
     {{#each realTimeProductsRender.productsVisualice}}
-      <div class="card" style="width: 150px; margin: 20px">
-        <div class="card-image" style="padding: 15px">
-          <figure class="image is-4by3">
-            <img src={{this.thumbnail}} alt="foto de Product {{this.id}}">
+      <div class='card' style='width: 150px; margin: 20px'>
+        <div class='card-image' style='padding: 15px'>
+          <figure class='image is-4by3'>
+            <img src={{this.thumbnail}} alt='foto de Product {{this.id}}' />
           </figure>
         </div>
-        <div class="card-content" >
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-6">Nombre: {{this.title}}</p>
-              <p class="subtitle is-6">Descripción: {{this.description}}</p>
-              <p class="subtitle is-6">Precio: {{this.price}}</p>
-              <p class="subtitle is-6">Stock: {{this.stock}}</p>
-              <p class="subtitle is-6">Categoria: {{this.category}}</p>
+        <div class='card-content'>
+          <div class='media'>
+            <div class='media-content'>
+              <p class='title is-6'>Nombre: {{this.title}}</p>
+              <p class='subtitle is-6'>Descripción: {{this.description}}</p>
+              <p class='subtitle is-6'>Precio: {{this.price}}</p>
+              <p class='subtitle is-6'>Stock: {{this.stock}}</p>
+              <p class='subtitle is-6'>Categoria: {{this.category}}</p>
             </div>
           </div>
-          <button id="deleteButton" class="button is-small delete-button" type="button" data-product-id="{{this._id}}">
-            <ion-icon name="trash"></ion-icon>
+          <button class='button is-small delete-button' type='button' data-product-id='{{this._id}}' onclick='deleteProduct("{{this._id}}")'>
+            <ion-icon name='trash'></ion-icon>
           </button>
         </div>
       </div>
     {{/each}}
   </div>
-  <div style="display: flex; justify-content: center; margin-top: 30px">
-    <div class="pagination">
+  <div style='display: flex; justify-content: center; margin-top: 30px'>
+    <div class='pagination'>
       {{#if realTimeProductsRender.paginationInfo.hasPrevPage}}
-        <a href="?page={{realTimeProductsRender.paginationInfo.prevPage}}&limit={{realTimeProductsRender.paginationInfo.limit}}&sort={{realTimeProductsRender.sort}}">⬅️ Anterior</a>
+        <a href='?page={{realTimeProductsRender.paginationInfo.prevPage}}&limit={{realTimeProductsRender.paginationInfo.limit}}&sort={{realTimeProductsRender.sort}}'>⬅️ Anterior</a>
       {{/if}}
-      <span style="margin-left: 20px; margin-right: 20px">
-        Página {{realTimeProductsRender.paginationInfo.page}} de {{realTimeProductsRender.paginationInfo.totalPages}}
+      <span style='margin-left: 20px; margin-right: 20px'>
+        Página
+        {{realTimeProductsRender.paginationInfo.page}}
+        de
+        {{realTimeProductsRender.paginationInfo.totalPages}}
       </span>
       {{#if realTimeProductsRender.paginationInfo.hasNextPage}}
-        <a href="?page={{realTimeProductsRender.paginationInfo.nextPage}}&limit={{realTimeProductsRender.paginationInfo.limit}}&sort={{sort}}">Siguiente ➡️</a>
+        <a href='?page={{realTimeProductsRender.paginationInfo.nextPage}}&limit={{realTimeProductsRender.paginationInfo.limit}}&sort={{sort}}'>Siguiente ➡️</a>
       {{/if}}
     </div>
   </div>
 </section>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
+<script src='/js/index.js'></script>

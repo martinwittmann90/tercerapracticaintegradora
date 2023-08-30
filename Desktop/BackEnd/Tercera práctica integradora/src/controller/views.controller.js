@@ -46,6 +46,7 @@ class ViewsController {
       const productsContext = {
         isAdmin: user.isAdmin,
         isPremium: user.isPremium,
+        userCartID: user.cartID,
         session: req.session.user,
         productsVisualice: productsVisualice,
         paginationInfo: paginationInfo,
@@ -63,7 +64,7 @@ class ViewsController {
       });
     }
   }
-  async getCardbyId(req, res, next) {
+  async getCartById(req, res, next) {
     try {
       const { cid } = req.params;
       const cart = await serviceCarts.getCartService(cid);

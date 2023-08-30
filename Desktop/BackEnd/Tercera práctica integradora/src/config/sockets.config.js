@@ -9,7 +9,7 @@ export default (io) => {
   io.on('connection', (socket) => {
     logger.info('New client websocket connected:', { socketId: socket.id });
     //SOCKET PRODUCTS
-    socket.on('product_front_to_back', async (newProduct) => {
+    /*     socket.on('product_front_to_back', async (newProduct) => {
       try {
         await serviceProducts.createProduct(newProduct);
         const productList = await serviceProducts.getAllProducts();
@@ -17,9 +17,9 @@ export default (io) => {
       } catch (error) {
         logger.error(error);
       }
-    });
+    }); */
     //SOCKET DELETE ELEMENTS
-    socket.on('user_connected', async (user) => {
+    /*     socket.on('user_connected', async (user) => {
       const userRole = user.role;
       const userEmail = user.email;
       socket.on('deleteProduct_front_to_back', async (id) => {
@@ -42,7 +42,7 @@ export default (io) => {
           socket.emit('productDeleteError_back_to_front', { error: 'An error occurred while deleting the product', originalError: error });
         }
       });
-    });
+    }); */
     //SOCKET CHAT
     socket.on('chat_front_to_back', async (message) => {
       try {

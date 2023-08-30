@@ -3,7 +3,7 @@ import { createHash, compareHash } from '../config/bcrypt.js';
 import UsersDAO from '../DAO/classes/user.dao.js';
 const usersDAO = new UsersDAO();
 class ServiceUsers {
-  async addUser(firstName, lastName, email, age, password, role = 'user') {
+  async addUser(firstName, lastName, email, age, password) {
     try {
       const user = await UserModel.create({
         firstName,
