@@ -11,8 +11,8 @@ cartsRouter.post('/:cid/product/:pid', /* isUser, isPremium, isLogged, isNotAdmi
 cartsRouter.put('/:cid', cartController.updateCart);
 cartsRouter.delete('/delete/:cid/product/:pid', cartController.deletOneProductbyCart);
 cartsRouter.delete('/empty/:cid', cartController.clearCart);
-cartsRouter.get('/:cid/purchase', isLogged, isUser, isPremium, ticketsController.checkOut);
-cartsRouter.post('/:cid/purchase', isLogged, isUser, isPremium, ticketsController.addTicket);
-cartsRouter.get('/purchase/:cid', isLogged, isUser, isPremium, ticketsController.addTicket);
+cartsRouter.get('/:cid/purchase', isLogged, /* isUser, isPremium, */ ticketsController.checkOut);
+cartsRouter.post('/:cid/purchase', isLogged, /* isUser, isPremium, */ ticketsController.addTicket);
+cartsRouter.get('/purchase/:cid', isLogged, /* isUser, isPremium, */ ticketsController.addTicket);
 
 export default cartsRouter;
