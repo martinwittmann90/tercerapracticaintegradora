@@ -1,14 +1,8 @@
-import jwt from 'jsonwebtoken';
 import userDTO from '../DAO/DTO/user.dto.js';
 import { logger } from '../utils/logger.js';
 import ServiceUsers from '../services/user.service.js';
-import { mailController } from '../controller/messageandmail.controller.js';
-import UserModel from '../DAO/models/user.model.js';
-import { createHash } from '../config/bcrypt.js';
-
 import dotenv from 'dotenv';
 dotenv.config();
-const jwtSecret = process.env.JWT_SECRET;
 const serviceUsers = new ServiceUsers();
 
 class AuthController {
@@ -107,64 +101,7 @@ class AuthController {
       res.status(404).json({ status: 'error', message: 'Error loading data base' });
     }
   }
-  async renderForgetPassword(req, res) {
-    logger.debug('Rendering forget password page');
-    return res.render('forgetPassword', {});
-  }
-  async recoveryMail(req, res) {
-    try {
-      const { email } = req.body;
-      const user = await UserModel.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-      const token = jwt.sign({ uid: user._id }, jwtSecret, { expiresIn: '1h' });
-      const resetLink = `http://localhost:8080/auth/profile/reset-password/${token}`;
-      const mailOptions = {
-        from: mailController.GOOGLE_EMAIL,
-        to: email,
-        subject: 'Recuperación de Contraseña',
-        html: `Para restablecer tu contraseña, haz clic en el siguiente enlace: <a href="${resetLink}">${resetLink}</a>`,
-      };
 
-      await mailController.sendMail(mailOptions);
-      return res.redirect('/forget-password');
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: 'Internal server error' });
-    }
-  }
-  async getPassword(req, res) {
-    try {
-      const { token } = req.params;
-      const decodedToken = jwt.verify(token, jwtSecret);
-      console.log('Decoded Token:', decodedToken);
-      const user = await serviceUsers.getUserByIdService(decodedToken.uid);
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-      return res.render('resetPassword', { token });
-    } catch (error) {
-      return res.status(400).json({ message: 'Invalid token' });
-    }
-  }
-  async postPassword(req, res) {
-    try {
-      const { token } = req.params;
-      const { newPassword } = req.body;
-      const decodedToken = jwt.verify(token, jwtSecret);
-      const user = await serviceUsers.getUserByIdService(decodedToken.uid);
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-      user.password = createHash(newPassword);
-      await user.save();
-      return res.render('resetPasswordSuccess');
-    } catch (error) {
-      console.error('Error in postPassword:', error);
-      return res.status(400).json({ message: 'Invalid token' });
-    }
-  }
   async renderChangeUserRole(req, res) {
     try {
       const { uid } = req.params;

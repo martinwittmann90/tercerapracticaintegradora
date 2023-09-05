@@ -17,10 +17,7 @@ sessionsRouter.get('/login/google', passport.authenticate('google', { scope: ['u
 sessionsRouter.get('/oauth2/redirect/google', passport.authenticate('google', { failureRedirect: '/login' }), authController.registerGoogle);
 sessionsRouter.get('/current', authController.getCurrent);
 sessionsRouter.get('/admincontrol', isAdmin, authController.userDataBase);
-sessionsRouter.get('/forget-password', authController.renderForgetPassword);
-sessionsRouter.post('/forget-password', authController.recoveryMail);
-sessionsRouter.get('/reset-password/:token', authController.getPassword);
-sessionsRouter.post('/reset-password/:token', authController.postPassword);
+
 sessionsRouter.get('/users/premium/:uid', isAdmin, authController.renderChangeUserRole);
 sessionsRouter.post('/users/premium/:uid', isAdmin, authController.changeUserRole);
 

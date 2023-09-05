@@ -9,6 +9,14 @@ class UsersDAO {
   catch(Error) {
     throw `Error finding all users`;
   }
+  async getUserByEmailDAO(email) {
+    try {
+      const user = await UserModel.findOne({ email });
+      return user;
+    } catch (error) {
+      throw new Error('Error finding user by email: ' + error.message);
+    }
+  }
   async getUserByIdDAO(uid) {
     const user = await UserModel.findById(uid); /* .populate('products.product').lean() */
     return user;
@@ -27,7 +35,7 @@ class UsersDAO {
     try {
       const deleteUSer = await CartModel.findByIdAndUpdate(uid, user, { new: true });
       return deleteUSer;
-    } catch (Error) {
+    } catch (error) {
       throw `Error deleting user`;
     }
   }

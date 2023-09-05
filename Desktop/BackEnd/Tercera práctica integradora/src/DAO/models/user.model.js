@@ -38,14 +38,14 @@ const userSchema = new Schema(
       required: false,
       ref: 'carts',
     },
-    resetToken: {
+    /*     resetToken: {
       type: String,
       required: false,
     },
     resetTokenExpires: {
       type: Date,
       required: false,
-    },
+    }, */
   },
   { versionKey: false }
 );

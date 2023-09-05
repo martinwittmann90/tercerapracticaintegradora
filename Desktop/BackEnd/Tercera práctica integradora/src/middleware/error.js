@@ -1,18 +1,27 @@
-import  EErros from '../error/enum.js';
+import EErrors from '../error/enum.js';
+import CustomError from '../error/customError.js';
 
 export default (err, req, res, next) => {
   switch (err?.code) {
-    case EErros.PRODUCT_ALREADY_EXISTS:
-        break
-    case EErros.INVALID_TYPES_ERROR:
-        break;
-    case EErros.INVALID_REQUEST:
-        break;
-    case EErros.ADD_PRODUCT_ERR:
-        res.status(500).json({ Error: `${err}` });
-        break;
+    case EErrors.PRODUCT_ALREADY_EXISTS:
+      // Aquí puedes manejar el error de producto duplicado de manera específica
+      res.status(400).json({ error: 'Product already exists', cause: err.cause });
+      break;
+    case EErrors.INVALID_TYPES_ERROR:
+      // Aquí puedes manejar el error de tipos no válidos de manera específica
+      res.status(400).json({ error: 'Invalid types', cause: err.cause });
+      break;
+    case EErrors.INVALID_REQUEST:
+      // Aquí puedes manejar el error de solicitud no válida de manera específica
+      res.status(400).json({ error: 'Invalid request', cause: err.cause });
+      break;
+    case EErrors.ADD_PRODUCT_ERR:
+      // Aquí puedes manejar otros errores de manera específica
+      res.status(500).json({ error: 'Internal server error', cause: err.cause });
+      break;
     default:
-        res.status(500).json({ Error: `${err}` });
-        break;
-    }
+      // En caso de otros errores no manejados específicamente, puedes responder con un error genérico
+      res.status(500).json({ error: 'Internal server error', cause: err.cause });
+      break;
+  }
 };

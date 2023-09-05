@@ -50,6 +50,14 @@ class ServiceUsers {
       throw new CustomError(`No se encontró user de id ${id}.`);
     }
   }
+  async getUserByEmail(email) {
+    try {
+      const user = await usersDAO.getUserByEmailDAO(email);
+      return user;
+    } catch (error) {
+      throw new Error('Error getting user by email: ' + error.message);
+    }
+  }
 }
 
 export default ServiceUsers;

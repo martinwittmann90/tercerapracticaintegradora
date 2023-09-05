@@ -1,16 +1,17 @@
-import jwt from 'jsonwebtoken';
 import { logger } from '../utils/logger.js';
 import passport from 'passport';
 import local from 'passport-local';
 import UserModel from '../DAO/models/user.model.js';
+import TokenService from '../services/tokens.service.js';
 import { compareHash, createHash } from '../config/bcrypt.js';
 import dotenv from 'dotenv';
 dotenv.config();
 import config from './envConfig.js';
 import GitHubStrategy from 'passport-github2';
+import { v4 } from 'uuid';
 import fetch from 'node-fetch';
 import GoogleStrategy from 'passport-google-oauth20';
-
+const tokenService = new TokenService();
 const localStrategy = local.Strategy;
 
 import ServiceCarts from '../services/carts.service.js';
@@ -45,10 +46,8 @@ export default function initPassport() {
           });
           await newUser.save();
           logger.info('User Registration successful', { user: newUser });
-          const recoveryToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-          newUser.resetToken = recoveryToken;
-          newUser.resetTokenExpires = new Date(Date.now() + 3600000);
-          await newUser.save();
+          const token = v4();
+          await tokenService.generateToken(newUser._id, token);
           return done(null, newUser);
         } catch (error) {
           logger.error('Error in register', { error: error });
@@ -77,7 +76,34 @@ export default function initPassport() {
       }
     })
   );
+  passport.use(
+    'forgotPassword',
+    new localStrategy(
+      {
+        passReqToCallback: true,
+        usernameField: 'email',
+      },
+      async (req, username, password, done) => {
+        try {
+          const { email } = req.body;
+          const user = await UserModel.findOne({ email });
+          if (!user) {
+            logger.info('User Not Found with email', { email });
+            return done(null, false, { message: 'User not found' });
+          }
 
+          const token = await tokenService.generateToken(user._id); // Use user's _id for token
+          await tokenService.sendPasswordResetEmail(email, token);
+
+          logger.info('Password reset email sent to', { email });
+          return done(null, user);
+        } catch (error) {
+          logger.error('Error in forgotPassword', { error });
+          return done(error);
+        }
+      }
+    )
+  );
   passport.use(
     'github',
     new GitHubStrategy(
