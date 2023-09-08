@@ -28,6 +28,10 @@ export default function initPassport() {
       async (req, username, password, done) => {
         try {
           const { email, firstName, lastName, age } = req.body;
+          if (!email || !firstName || !lastName || !age || !password) {
+            logger.error('Campos incompletos en la solicitud de registro');
+            return done(null, false);
+          }
           let user = await UserModel.findOne({ email: username });
           if (user) {
             logger.info('User already exists', { user: user });
@@ -46,8 +50,6 @@ export default function initPassport() {
           });
           await newUser.save();
           logger.info('User Registration successful', { user: newUser });
-          const token = v4();
-          await tokenService.generateToken(newUser._id, token);
           return done(null, newUser);
         } catch (error) {
           logger.error('Error in register', { error: error });

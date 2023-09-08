@@ -15,16 +15,18 @@ class TokenController {
   async sendPasswordResetEmail(req, res) {
     try {
       const { email } = req.body;
-      if (!email) {
+      const trimmedEmail = email.trim();
+      logger.debug(trimmedEmail);
+      if (!trimmedEmail) {
         return res.status(400).json({ success: false, message: 'Email is required' });
       }
-      const user = await serviceUsers.getUserByEmail(email);
+      const user = await serviceUsers.getUserByEmail(trimmedEmail);
+      logger.debug(user);
       if (!user) {
         return res.status(404).json({ success: false, message: 'User not found' });
       }
       const token = await tokenService.generateResetToken(user._id); //
       const resetLink = `http://localhost:8080/reset-password/${token.tokenNumber}`;
-
       const mailOptions = {
         from: mailController.GOOGLE_EMAIL,
         to: email,
