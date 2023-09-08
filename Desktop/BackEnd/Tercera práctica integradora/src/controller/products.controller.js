@@ -81,14 +81,46 @@ class ProductsController {
     try {
       const productId = req.params.id;
       const updatedProduct = req.body;
-      const product = await serviceProducts.updateProduct(productId, updatedProduct);
-      if (!product) {
+      const user = req.session.user;
+      const existingProduct = await serviceProducts.getProductById(productId);
+      if (!existingProduct) {
         return res.status(404).json({
           status: 'error',
           msg: 'Product not found',
         });
       }
-      res.status(200).json({ status: 'success', msg: 'Product updated', payload: product });
+      if (user.role === 'admin') {
+        const updated = await serviceProducts.updateProduct(productId, updatedProduct);
+        if (!updated) {
+          return res.status(500).json({
+            status: 'error',
+            msg: 'Failed to update product',
+          });
+        }
+        return res.status(200).json({
+          status: 'success',
+          msg: 'Product updated',
+          payload: updated,
+        });
+      } else if (user.role === 'premium' && existingProduct.owner === user.email) {
+        const updated = await serviceProducts.updateProduct(productId, updatedProduct);
+        if (!updated) {
+          return res.status(500).json({
+            status: 'error',
+            msg: 'Failed to update product',
+          });
+        }
+        return res.status(200).json({
+          status: 'success',
+          msg: 'Product updated',
+          payload: updated,
+        });
+      } else {
+        return res.status(403).json({
+          status: 'error',
+          msg: 'Permission denied',
+        });
+      }
     } catch (error) {
       logger.error(error.message);
       res.status(500).json({ status: 'error', msg: error.message });
